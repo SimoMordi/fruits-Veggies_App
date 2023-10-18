@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+
+
 const CreateFruits = () => {
   // fruit creation app
   const [fruitData, setFruitData] = useState({
@@ -7,32 +9,22 @@ const CreateFruits = () => {
     color: "",
     readyToEat: false,
   });
-  const [error, setError] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!fruitData.name || !fruitData.color) {
-      setError("Invalid inputs!");
-      return;
-    }
     console.log(fruitData);
     axios({
       method: "POST",
-      url: "http://localhost:3000/fruits",
+      url: "server/fruits",
       data: fruitData, // YOU WILL FIND THIS DATA IN ***req.body*** OF THE ROUTE
     }).then((res) => {
-      console.log(res.data);
-      setFruitData({
-        name: "",
-        color: "",
-        readyToEat: false,
-      });
-      setError("");
+      console.log(res);
     });
   };
+
   return (
     <div>
       <h1>New Fruit page</h1>
-      {error && <div>{error}</div>}
       <form onSubmit={handleSubmit}>
         Name:{" "}
         <input
@@ -47,8 +39,7 @@ const CreateFruits = () => {
           type="text"
           name="color"
           value={fruitData.color}
-          onChange={(e) =>
-            setFruitData({ ...fruitData, color: e.target.value })
+          onChange={(e) => setFruitData({ ...fruitData, color: e.target.value })
           }
         />
         <br />
@@ -57,10 +48,18 @@ const CreateFruits = () => {
           type="checkbox"
           name="readyToEat"
           value={fruitData.readyToEat}
-          onChange={(e) =>
-            setFruitData({ ...fruitData, readyToEat: !fruitData.readyToEat })
-          }
+          onChange={(e) => setFruitData({ ...fruitData, readyToEat: !fruitData.readyToEat })
+          }          
         />
+        <br />
+        Age:{}
+        <input
+          type="number"
+          name="age"
+          value={fruitData.age}
+          onChange={(e) => setFruitData({ ...fruitData, age: e.target.value })}
+        />
+
         <br />
         <button>Create Fruit</button>
       </form>

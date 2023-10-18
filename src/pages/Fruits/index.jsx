@@ -9,7 +9,7 @@ const Fruits = () => {
 useEffect(() => {
         axios({
             method: "GET",
-            url: "http://localhost:4000/fruits",
+            url: "server/fruits",
 
         }).then((res) => {
             console.log(res.data);
@@ -19,24 +19,23 @@ useEffect(() => {
     },[])
 console.log(fruits);
 
-  return (
-
-    <div>Show all fruits here:
-        <ul>
-        {fruits.map((fruit)=>{
-            return(
-                <li key={fruit.name}>
-                <p>{fruit.name}</p>
-                <p>{fruit.color}</p>
-                <p>{fruit.readyToEat}</p>
+return (
+    <div>
+      Show all fruits here:
+      <ul>
+        {fruits.map((fruit) => {
+          return (
+            <li key={JSON.stringify(fruit)}>
+              <p>Name: {fruit.name}</p>
+              <p>Color: {fruit.color}</p>
+              <p>Ready to Eat: {fruit.readyToEat}</p>
+              <p>Age: {fruit.age}</p>
             </li>
-
-            )
-            
+          );
         })}
-        </ul>
+      </ul>
     </div>
-  )
+  );
 }
 
 export default Fruits
