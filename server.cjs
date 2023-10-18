@@ -6,6 +6,7 @@ const PORT = 4000;
 const app = express();
 
 const Fruit = require('./models/Fruit.cjs')
+const Veggie = require('./models/Veggie.cjs')
 
 
 
@@ -37,6 +38,19 @@ app.post("/fruits", async (req,res) => {
     let fruit = req.body;
    let responseFromDB = await Fruit.create(fruit);
    console.log(responseFromDB);
+    res.status(201).send("Route is good")
+});
+
+app.get("/veggies", async (req, res) => {
+    let veggiesFromDB = await Veggie.find();
+    res.send(veggiesFromDB);
+});
+
+app.post("/veggies", async (req,res) => {
+    console.log(req.body);
+    let veggie = req.body;
+   let responseFromVeggiesDB = await Veggie.create(veggie);
+   console.log(responseFromVeggiesDB);
     res.status(201).send("Route is good")
 });
 

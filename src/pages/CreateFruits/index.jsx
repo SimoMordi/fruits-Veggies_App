@@ -8,6 +8,7 @@ const CreateFruits = () => {
     name: "",
     color: "",
     readyToEat: false,
+    age: 0,
   });
 
   const handleSubmit = (e) => {
